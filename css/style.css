@@ -1,0 +1,210 @@
+/*
+ * 主题变量集中在此，JS 不参与配色决策，避免样式散落在脚本里。
+ *
+ * 配色思路：深青黑打底（不是中性黑，色相明确偏青），
+ * 页面强调色取琥珀金，与画布里的橙色食物同属暖色系；
+ * 画布内的蛇身走冷色（蓝→青绿），冷暖对比让食物在满屏蛇身中始终醒目。
+ * 画布用色见 js/renderer.js 的 PALETTE —— 两边是同一套视觉语言的两种载体。
+ */
+:root {
+  --bg: #080f12;
+  --bg-glow: #10404a;
+  --surface: #0d1619;
+  --surface-2: #142025;
+  --border: #1d2b30;
+  --text: #e4edea;
+  --text-dim: #7d908d;
+
+  --accent: #f2b544;
+  --accent-dim: #d99a2b;
+  --danger: #ff6b6b;
+
+  --radius-lg: 16px;
+  --radius-md: 8px;
+  --font-sans: ui-sans-serif, system-ui, "Segoe UI", "Microsoft YaHei", sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", Consolas, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(900px 600px at 50% -10%, var(--bg-glow) 0%, transparent 70%),
+    var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  /* 防止移动端长按选中/回弹干扰操作 */
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  max-width: 560px;
+}
+
+/* ---------- HUD ---------- */
+
+.hud {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hud__stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.hud__label {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+}
+
+.hud__value {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 最高分常驻强调色，破纪录时再叠加一次放大动画 */
+.hud__stat--best .hud__value {
+  color: var(--accent);
+}
+
+.hud__value--record {
+  animation: pop 0.5s ease;
+}
+
+@keyframes pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+.hud__mute {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-dim);
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.hud__mute:hover {
+  color: var(--text);
+  border-color: var(--accent-dim);
+}
+
+.hud__mute[aria-pressed="true"] {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+/* ---------- 画布舞台 ---------- */
+
+.stage {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 18px 50px -20px rgba(0, 0, 0, 0.9);
+}
+
+#board {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--surface);
+}
+
+/* ---------- 遮罩层 ---------- */
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  padding: 24px;
+  background: rgba(8, 15, 18, 0.78);
+  backdrop-filter: blur(3px);
+  transition: opacity 0.2s ease;
+}
+
+/* .overlay 是 flex，会覆盖 [hidden] 的 display:none，故需显式声明 */
+.overlay[hidden] {
+  display: none;
+}
+
+.overlay__title {
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: 0.04em;
+}
+
+.overlay__title--danger {
+  color: var(--danger);
+}
+
+.overlay__text {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-dim);
+}
+
+/* ---------- 底部提示 ---------- */
+
+.help {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 16px;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+kbd {
+  display: inline-block;
+  min-width: 18px;
+  padding: 1px 5px;
+  margin: 0 1px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-align: center;
+  color: var(--text);
+}

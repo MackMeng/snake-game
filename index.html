@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>贪吃蛇</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="hud">
+      <div class="hud__stat">
+        <span class="hud__label">分数</span>
+        <span class="hud__value" id="score">0</span>
+      </div>
+      <div class="hud__stat hud__stat--best">
+        <span class="hud__label">最高分</span>
+        <span class="hud__value" id="best">0</span>
+      </div>
+      <div class="hud__stat">
+        <span class="hud__label">速度</span>
+        <span class="hud__value" id="level">1</span>
+      </div>
+      <button class="hud__mute" id="mute" type="button" aria-label="切换音效" aria-pressed="false">🔊</button>
+    </header>
+
+    <div class="stage">
+      <canvas id="board" width="600" height="600" aria-label="游戏区域"></canvas>
+      <div class="overlay" id="overlay">
+        <h1 class="overlay__title" id="overlay-title">贪吃蛇</h1>
+        <p class="overlay__text" id="overlay-text">按 Enter 开始</p>
+      </div>
+    </div>
+
+    <footer class="help">
+      <span><kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd> / <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 移动</span>
+      <span><kbd>空格</kbd> 暂停</span>
+      <span><kbd>Enter</kbd> 开始</span>
+      <span><kbd>R</kbd> 重开</span>
+    </footer>
+  </main>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
