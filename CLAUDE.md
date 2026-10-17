@@ -32,6 +32,10 @@ snake/
 ├── index.html         # 唯一页面：HUD + canvas + 遮罩层
 ├── css/
 │   └── style.css      # 主题变量与布局
+├── docs/
+│   └── screenshot.png # README 截图（由 tools/screenshot.mjs 生成，勿手改）
+├── tools/
+│   └── screenshot.mjs # 零依赖截图脚本：无头 Chrome + CDP，自动玩一局后截屏
 ├── tests/             # 零依赖测试（Node 内置能力实现，见第 8 节）
 │   ├── harness.mjs    # 极简断言工具
 │   ├── run-all.mjs    # 汇总运行入口

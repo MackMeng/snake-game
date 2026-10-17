@@ -2,6 +2,8 @@
 
 原生 HTML5 Canvas 实现的贪吃蛇小游戏，**零依赖、零构建**——没有 npm 包、没有打包器，浏览器直接运行。
 
+![贪吃蛇游戏截图](docs/screenshot.png)
+
 ## 本地运行
 
 项目使用 ES Modules，`file://` 协议会被浏览器的 CORS 策略拦截，必须通过 HTTP 服务打开：
@@ -79,6 +81,12 @@ node tests/game.test.mjs      # 单独运行某个模块
 需要 Node ≥ 22（依赖其 ESM 语法探测，无需 `package.json`）。
 
 测试覆盖领域逻辑、编排规则与浏览器 API 的控制流；音色与像素观感需人工确认。
+
+README 顶部的截图由 [`tools/screenshot.mjs`](tools/screenshot.mjs) 生成：无头 Chrome 自动玩到 50 分后截屏，画面来自真实渲染，需要本机装有 Chrome 或 Edge。
+
+```bash
+node tools/screenshot.mjs        # 重新生成 docs/screenshot.png
+```
 
 ## 调参
 
