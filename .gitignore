@@ -1,0 +1,16 @@
+# 依赖与构建产物（本项目零依赖，保留以防误装）
+node_modules/
+dist/
+build/
+
+# 日志
+*.log
+npm-debug.log*
+
+# 编辑器与操作系统
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
